@@ -82,6 +82,8 @@ void main()
 
         public Control SettingsControl { get { return settingsControl; } }
 
+        public bool ManualNoteDelete => false;
+
         public double NoteScreenTime
         {
             get
@@ -340,10 +342,6 @@ void main()
                         }
                     }
                     else break;
-                }
-                else
-                {
-                    n.delete = true;
                 }
             }
             FlushQuadBuffer(false);
