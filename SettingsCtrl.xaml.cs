@@ -29,7 +29,6 @@ namespace FlatRender
             firstNote.Value = settings.firstNote;
             lastNote.Value = settings.lastNote - 1;
             pianoHeight.Value = (int)(settings.pianoHeight * 100);
-            noteBrightness.Value = (decimal)settings.noteBrightness;
             noteDeltaScreenTime.Value = Math.Log(settings.deltaTimeOnScreen, 2);
             screenTime.Content = settings.deltaTimeOnScreen;
             sameWidth.IsChecked = settings.sameWidthNotes;
@@ -53,7 +52,6 @@ namespace FlatRender
                 if (sender == firstNote) settings.firstNote = (int)firstNote.Value;
                 if (sender == lastNote) settings.lastNote = (int)lastNote.Value + 1;
                 if (sender == pianoHeight) settings.pianoHeight = (double)pianoHeight.Value / 100;
-                if (sender == noteBrightness) settings.noteBrightness = (float)noteBrightness.Value;
                 if (sender == noteDeltaScreenTime) settings.deltaTimeOnScreen = (int)noteDeltaScreenTime.Value;
             }
             catch (NullReferenceException) { }

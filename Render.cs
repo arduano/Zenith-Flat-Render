@@ -285,75 +285,78 @@ void main()
                     {
                         if (n.note >= firstNote && n.note < lastNote)
                         {
-                            nc++;
-                            int k = n.note;
-                            if (!(k >= firstNote && k < lastNote)) continue;
-                            Color4 coll = n.track.trkColor[n.channel * 2];
-                            Color4 colr = n.track.trkColor[n.channel * 2 + 1];
-                            if (n.start < midiTime)
+                            unsafe
                             {
-                                Color4 origcoll = keyColors[k * 2];
-                                Color4 origcolr = keyColors[k * 2 + 1];
-                                float blendfac = coll.A * 0.8f;
-                                float revblendfac = 1 - blendfac;
-                                keyColors[k * 2] = new Color4(
-                                    coll.R * blendfac + origcoll.R * revblendfac,
-                                    coll.G * blendfac + origcoll.G * revblendfac,
-                                    coll.B * blendfac + origcoll.B * revblendfac,
-                                    1);
-                                blendfac = colr.A * 0.8f;
-                                revblendfac = 1 - blendfac;
-                                keyColors[k * 2 + 1] = new Color4(
-                                    colr.R * blendfac + origcolr.R * revblendfac,
-                                    colr.G * blendfac + origcolr.G * revblendfac,
-                                    colr.B * blendfac + origcolr.B * revblendfac,
-                                    1);
+                                nc++;
+                                int k = n.note;
+                                if (!(k >= firstNote && k < lastNote)) continue;
+                                Color4 coll = n.track.trkColor[n.channel * 2];
+                                Color4 colr = n.track.trkColor[n.channel * 2 + 1];
+                                if (n.start < midiTime)
+                                {
+                                    Color4 origcoll = keyColors[k * 2];
+                                    Color4 origcolr = keyColors[k * 2 + 1];
+                                    float blendfac = coll.A * 0.8f;
+                                    float revblendfac = 1 - blendfac;
+                                    keyColors[k * 2] = new Color4(
+                                        coll.R * blendfac + origcoll.R * revblendfac,
+                                        coll.G * blendfac + origcoll.G * revblendfac,
+                                        coll.B * blendfac + origcoll.B * revblendfac,
+                                        1);
+                                    blendfac = colr.A * 0.8f;
+                                    revblendfac = 1 - blendfac;
+                                    keyColors[k * 2 + 1] = new Color4(
+                                        colr.R * blendfac + origcolr.R * revblendfac,
+                                        colr.G * blendfac + origcolr.G * revblendfac,
+                                        colr.B * blendfac + origcolr.B * revblendfac,
+                                        1);
+                                }
+                                x1 = x1array[k];
+                                wdth = wdtharray[k];
+                                x2 = x1 + wdth;
+                                y1 = 1 - (renderCutoff - n.end) * notePosFactor;
+                                y2 = 1 - (renderCutoff - n.start) * notePosFactor;
+                                if (!n.hasEnded)
+                                    y1 = 1;
+
+                                int pos = quadBufferPos * 8;
+                                quadVertexbuff[pos++] = x2;
+                                quadVertexbuff[pos++] = y2;
+                                quadVertexbuff[pos++] = x2;
+                                quadVertexbuff[pos++] = y1;
+                                quadVertexbuff[pos++] = x1;
+                                quadVertexbuff[pos++] = y1;
+                                quadVertexbuff[pos++] = x1;
+                                quadVertexbuff[pos++] = y2;
+
+                                pos = quadBufferPos * 16;
+                                r = coll.R;
+                                g = coll.G;
+                                b = coll.B;
+                                a = coll.A;
+                                quadColorbuff[pos++] = r;
+                                quadColorbuff[pos++] = g;
+                                quadColorbuff[pos++] = b;
+                                quadColorbuff[pos++] = a;
+                                quadColorbuff[pos++] = r;
+                                quadColorbuff[pos++] = g;
+                                quadColorbuff[pos++] = b;
+                                quadColorbuff[pos++] = a;
+                                r = colr.R;
+                                g = colr.G;
+                                b = colr.B;
+                                a = colr.A;
+                                quadColorbuff[pos++] = r;
+                                quadColorbuff[pos++] = g;
+                                quadColorbuff[pos++] = b;
+                                quadColorbuff[pos++] = a;
+                                quadColorbuff[pos++] = r;
+                                quadColorbuff[pos++] = g;
+                                quadColorbuff[pos++] = b;
+                                quadColorbuff[pos++] = a;
+
+                                quadBufferPos++;
                             }
-                            x1 = x1array[k];
-                            wdth = wdtharray[k];
-                            x2 = x1 + wdth;
-                            y1 = 1 - (renderCutoff - n.end) * notePosFactor;
-                            y2 = 1 - (renderCutoff - n.start) * notePosFactor;
-                            if (!n.hasEnded)
-                                y1 = 1;
-
-                            int pos = quadBufferPos * 8;
-                            quadVertexbuff[pos++] = x2;
-                            quadVertexbuff[pos++] = y2;
-                            quadVertexbuff[pos++] = x2;
-                            quadVertexbuff[pos++] = y1;
-                            quadVertexbuff[pos++] = x1;
-                            quadVertexbuff[pos++] = y1;
-                            quadVertexbuff[pos++] = x1;
-                            quadVertexbuff[pos++] = y2;
-
-                            pos = quadBufferPos * 16;
-                            r = coll.R;
-                            g = coll.G;
-                            b = coll.B;
-                            a = coll.A;
-                            quadColorbuff[pos++] = r;
-                            quadColorbuff[pos++] = g;
-                            quadColorbuff[pos++] = b;
-                            quadColorbuff[pos++] = a;
-                            quadColorbuff[pos++] = r;
-                            quadColorbuff[pos++] = g;
-                            quadColorbuff[pos++] = b;
-                            quadColorbuff[pos++] = a;
-                            r = colr.R;
-                            g = colr.G;
-                            b = colr.B;
-                            a = colr.A;
-                            quadColorbuff[pos++] = r;
-                            quadColorbuff[pos++] = g;
-                            quadColorbuff[pos++] = b;
-                            quadColorbuff[pos++] = a;
-                            quadColorbuff[pos++] = r;
-                            quadColorbuff[pos++] = g;
-                            quadColorbuff[pos++] = b;
-                            quadColorbuff[pos++] = a;
-
-                            quadBufferPos++;
                             FlushQuadBuffer();
                         }
                     }
