@@ -35,12 +35,14 @@ namespace FlatRender
             if (settings.tickBased) tickBase.SelectedIndex = 0;
             else tickBase.SelectedIndex = 1;
             screenTime.Content = (Math.Round(settings.deltaTimeOnScreen * 100) / 100).ToString();
+            paletteList.SelectImage(settings.palette);
         }
 
         public SettingsCtrl(Settings settings) : base()
         {
             InitializeComponent();
             this.settings = settings;
+            paletteList.SetPath("Plugins\\Assets\\Flat\\Palettes");
             LoadSettings(true);
             SetValues();
         }
@@ -73,6 +75,7 @@ namespace FlatRender
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
+            settings.palette = paletteList.SelectedImage;
             try
             {
                 string s = JsonConvert.SerializeObject(settings, Formatting.Indented);

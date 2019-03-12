@@ -14,6 +14,8 @@ namespace FlatRender
         public double deltaTimeOnScreen = 294.067;
         public bool sameWidthNotes = true;
 
+        public string palette = "Random";
+
         public float noteBrightness = 1;
 
         public bool tickBased = true;
