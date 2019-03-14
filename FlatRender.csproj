@@ -114,9 +114,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BMEngine\BMEngine.csproj">
+    <ProjectReference Include="..\BMEngine\ZenithEngine.csproj">
       <Project>{60F2212A-D56C-4776-836F-6A49453CDBC4}</Project>
-      <Name>BMEngine</Name>
+      <Name>ZenithEngine</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
