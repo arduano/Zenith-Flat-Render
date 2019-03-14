@@ -118,6 +118,8 @@ void main()
             if (!Initialized) return;
             GL.DeleteBuffers(3, new int[] { vertexBufferID, colorBufferID });
             GL.DeleteProgram(noteShader);
+            quadVertexbuff = null;
+            quadColorbuff = null;
             Initialized = false;
             Console.WriteLine("Disposed of FlatRender");
         }
