@@ -298,14 +298,14 @@ void main()
                                 {
                                     Color4 origcoll = keyColors[k * 2];
                                     Color4 origcolr = keyColors[k * 2 + 1];
-                                    float blendfac = coll.A * 0.8f;
+                                    float blendfac = coll.A;
                                     float revblendfac = 1 - blendfac;
                                     keyColors[k * 2] = new Color4(
                                         coll.R * blendfac + origcoll.R * revblendfac,
                                         coll.G * blendfac + origcoll.G * revblendfac,
                                         coll.B * blendfac + origcoll.B * revblendfac,
                                         1);
-                                    blendfac = colr.A * 0.8f;
+                                    blendfac = colr.A;
                                     revblendfac = 1 - blendfac;
                                     keyColors[k * 2 + 1] = new Color4(
                                         colr.R * blendfac + origcolr.R * revblendfac,
