@@ -97,7 +97,7 @@ void main()
 
         public double LastMidiTimePerTick { get; set; } = 500000 / 96.0;
 
-        public MidiFile CurrentMidi { get; set; }
+        public MidiInfo CurrentMidi { get; set; }
 
         int noteShader;
 
@@ -294,8 +294,8 @@ void main()
                                 nc++;
                                 int k = n.note;
                                 if (!(k >= firstNote && k < lastNote)) continue;
-                                Color4 coll = n.track.trkColor[n.channel * 2];
-                                Color4 colr = n.track.trkColor[n.channel * 2 + 1];
+                                Color4 coll = n.color.left;
+                                Color4 colr = n.color.right;
                                 if (n.start < midiTime)
                                 {
                                     Color4 origcoll = keyColors[k * 2];
@@ -567,14 +567,14 @@ void main()
             GL.BindBuffer(BufferTarget.ArrayBuffer, vertexBufferID);
             GL.BufferData(
                 BufferTarget.ArrayBuffer,
-                (IntPtr)(quadVertexbuff.Length * 8),
+                (IntPtr)(quadBufferPos * 8 * 8),
                 quadVertexbuff,
                 BufferUsageHint.StaticDraw);
             GL.VertexAttribPointer(0, 2, VertexAttribPointerType.Double, false, 16, 0);
             GL.BindBuffer(BufferTarget.ArrayBuffer, colorBufferID);
             GL.BufferData(
                 BufferTarget.ArrayBuffer,
-                (IntPtr)(quadColorbuff.Length * 4),
+                (IntPtr)(quadBufferPos * 16 * 4),
                 quadColorbuff,
                 BufferUsageHint.StaticDraw);
             GL.VertexAttribPointer(1, 4, VertexAttribPointerType.Float, false, 16, 0);
@@ -590,7 +590,7 @@ void main()
             return n == 1 || n == 3 || n == 6 || n == 8 || n == 10;
         }
 
-        public void SetTrackColors(Color4[][] trakcs)
+        public void SetTrackColors(NoteColor[][] trakcs)
         {
             var cols = ((SettingsCtrl)SettingsControl).paletteList.GetColors(trakcs.Length);
 
@@ -598,18 +598,10 @@ void main()
             {
                 for (int j = 0; j < trakcs[i].Length; j++)
                 {
-                    trakcs[i][j] = cols[i * 32 + j];
+                    trakcs[i][j].left = cols[i * 32 + j * 2];
+                    trakcs[i][j].right = cols[i * 32 + j * 2 + 1];
                 }
             }
-
-            //for (int i = 0; i < trakcs.Length; i++)
-            //{
-            //    for (int j = 0; j < trakcs[i].Length / 2; j++)
-            //    {
-            //        trakcs[i][j * 2] = Color4.FromHsv(new OpenTK.Vector4((i * 16 + j) * 1.36271f % 1, 1.0f, settings.noteBrightness, 1f));
-            //        trakcs[i][j * 2 + 1] = Color4.FromHsv(new OpenTK.Vector4((i * 16 + j) * 1.36271f % 1, 1.0f, settings.noteBrightness, 1f));
-            //    }
-            //}
         }
     }
 }
