@@ -31,8 +31,6 @@ namespace FlatRender
             pianoHeight.Value = (int)(settings.pianoHeight * 100);
             noteDeltaScreenTime.Value = Math.Log(settings.deltaTimeOnScreen, 2);
             sameWidth.IsChecked = settings.sameWidthNotes;
-            if (settings.tickBased) tickBase.SelectedIndex = 0;
-            else tickBase.SelectedIndex = 1;
             paletteList.SelectImage(settings.palette);
         }
 
@@ -136,15 +134,6 @@ namespace FlatRender
             try
             {
                 settings.sameWidthNotes = (bool)sameWidth.IsChecked;
-            }
-            catch (NullReferenceException) { }
-        }
-
-        private void TickBase_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            try
-            {
-                settings.tickBased = tickBase.SelectedIndex == 0;
             }
             catch (NullReferenceException) { }
         }

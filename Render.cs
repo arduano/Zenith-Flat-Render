@@ -86,14 +86,7 @@ void main()
 
         public bool ManualNoteDelete => false;
 
-        public double NoteScreenTime
-        {
-            get
-            {
-                if (settings.tickBased) return settings.deltaTimeOnScreen;
-                return (double)settings.deltaTimeOnScreen * (500000 / 96.0) / LastMidiTimePerTick / 10;
-            }
-        }
+        public double NoteScreenTime => settings.deltaTimeOnScreen;
 
         public double LastMidiTimePerTick { get; set; } = 500000 / 96.0;
 
