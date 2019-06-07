@@ -38,7 +38,7 @@ namespace FlatRender
         {
             InitializeComponent();
             this.settings = settings;
-            paletteList.SetPath("Plugins\\Assets\\Flat\\Palettes");
+            paletteList.SetPath("Plugins\\Assets\\Palettes");
             LoadSettings(true);
             SetValues();
         }
