@@ -82,7 +82,7 @@ void main()
 
         public Control SettingsControl { get { return settingsControl; } }
 
-        public int NoteCollectorOffset => 0;
+        public double NoteCollectorOffset => 0;
 
         public bool ManualNoteDelete => false;
 
@@ -484,7 +484,7 @@ void main()
 
                 if (blackKeys[n])
                 {
-                    y2 = pianoHeight / 5 * 2;
+                    y2 = pianoHeight / 10 * 3.7;
                 }
                 else continue;
 
@@ -588,6 +588,7 @@ void main()
 
         public void ReloadTrackColors()
         {
+            if (NoteColors == null) return;
             var cols = ((SettingsCtrl)SettingsControl).paletteList.GetColors(NoteColors.Length);
 
             for (int i = 0; i < NoteColors.Length; i++)
