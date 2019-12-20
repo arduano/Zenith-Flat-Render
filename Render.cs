@@ -42,6 +42,7 @@ namespace FlatRender
         public string Description { get; } = "Flat renderer, requested by SquareWaveMidis for his channel";
         public bool Initialized { get; private set; } = false;
         public ImageSource PreviewImage { get; private set; }
+        public string LanguageDictName { get; } = "flat";
         #endregion
 
         #region Shaders
